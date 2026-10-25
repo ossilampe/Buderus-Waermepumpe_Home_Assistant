@@ -1,11 +1,15 @@
-substitutions:
-  device: servo_esphome # Set to desired device name in ESPHome
-  switch_name: "WP_servo_switch" # Set to desired name in Home Assistant
-  up_position: -55% # Taststellung
-  down_position: 20% # Parkstellung
-  center_position: 20% 
-  fequenz: 40 Hz # Geschwindigkeit
+# Servo-Switch für die Buderus-Brauchwasser-Wärmepumpe
+# Ein Micro-Servo drückt auf Befehl aus Home Assistant eine Taste am Bedienfeld
+# der Wärmepumpe (hier: Heizstab). Die rote LED leuchtet, solange der Ablauf läuft.
+# Details, Druckteile und Verdrahtung: README.md
 
+substitutions:
+  device: servo_esphome          # Gerätename in ESPHome (frei wählbar)
+  switch_name: "WP_servo_switch" # Name des Schalters in Home Assistant
+  up_position: -55%              # Taststellung: Finger drückt auf die Taste
+  down_position: 20%             # Parkstellung: Finger weg von der Taste
+  center_position: 20%
+  frequenz: 40 Hz                # PWM-Frequenz des Servos
 
 esphome:
   name: wp-servo
@@ -20,13 +24,16 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "Cp+fGYuz0auxW2m/T+E/obLGdkR0QgNG7Gv7uocKgFY="
+    key: !secret wp_servo_encryption_key
+
 ota:
-  password: "11c6467f5cac6c39be9b7a8adf5c370b"
+  - platform: esphome
+    password: !secret wp_servo_ota_password
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  # Feste IP – an das eigene Netz anpassen oder den Block entfernen (DHCP)
   manual_ip:
     static_ip: 192.168.178.64
     gateway: 192.168.178.1
@@ -35,21 +42,23 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Wp-Servo Fallback Hotspot"
-    password: "9BRl0VYbAkK4"
+    password: !secret wp_servo_ap_password
 
 captive_portal:
 
+# Rote LED an D2: leuchtet während des Tastendrucks
 light:
   - platform: monochromatic
     output: output_red
     id: red_led
 
 output:
+  # Servo-Signal an D1
   - platform: esp8266_pwm
     id: pwm_output
     pin:
       number: D1
-    frequency: ${fequenz}
+    frequency: ${frequenz}
 
   - platform: esp8266_pwm
     id: output_red
@@ -61,19 +70,19 @@ servo:
   - id: my_servo
     output: pwm_output
 
-
+# Die Taste an der Wärmepumpe schaltet um – deshalb drücken Ein und Aus gleich.
 switch:
   - platform: template
-    name: ${switch_name} 
+    name: ${switch_name}
     optimistic: false
     turn_on_action:
       - script.execute: move_up
     turn_off_action:
       - script.execute: move_down
-      
+
 script:
   - id: move_up
-    then: 
+    then:
       - light.turn_on: red_led
       - delay: 2s
       - servo.write:
@@ -88,8 +97,8 @@ script:
       - light.turn_off: red_led
 
   - id: move_down
-    then: 
-      
+    then:
+
       - delay: 2s
       - servo.write:
           id: my_servo
@@ -100,4 +109,4 @@ script:
           level: ${down_position}
       - delay: 2s
       - servo.detach: my_servo
-      - light.turn_off: red_led    
+      - light.turn_off: red_led

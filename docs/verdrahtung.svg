@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" width="860" height="440" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="440" rx="14" fill="#F6F8FA"/>
+  <text x="30" y="38" font-size="22" font-weight="700" fill="#1F2933">Servo-Switch – Verdrahtung</text>
+  <text x="30" y="62" font-size="13" fill="#52606D">Wemos D1 mini · Micro-Servo an D1 · rote LED an D2 · schematisch</text>
+
+  <!-- D1 mini -->
+  <rect x="30" y="90" width="200" height="250" rx="12" fill="#1F6FB2"/>
+  <rect x="75" y="102" width="110" height="40" rx="4" fill="#C9D3DD"/>
+  <text x="130" y="127" font-size="12" font-weight="700" fill="#1F2933" text-anchor="middle">ESP8266</text>
+  <text x="130" y="170" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">Wemos D1 mini</text>
+  <g font-size="13" font-weight="600" fill="#FFFFFF" text-anchor="end">
+    <text x="218" y="204">5V</text><text x="218" y="234">GND</text><text x="218" y="264">D1 · PWM</text><text x="218" y="294">D2 · PWM</text><text x="218" y="324">3V3</text>
+  </g>
+  <g fill="#F5C542"><circle cx="230" cy="200" r="5"/><circle cx="230" cy="230" r="5"/><circle cx="230" cy="260" r="5"/><circle cx="230" cy="290" r="5"/><circle cx="230" cy="320" r="5"/></g>
+  <rect x="100" y="340" width="60" height="16" rx="3" fill="#8A97A6"/>
+  <text x="130" y="376" font-size="12" fill="#52606D" text-anchor="middle">Micro-USB ← 5-V-Netzteil</text>
+
+  <!-- Servo -->
+  <rect x="540" y="96" width="260" height="130" rx="10" fill="#2E7D4F"/>
+  <text x="670" y="122" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">Micro-Servo (z. B. SG90)</text>
+  <text x="670" y="140" font-size="11" fill="#D7F0E0" text-anchor="middle">bewegt den Finger mit der Tastfläche</text>
+  <g font-size="12" font-weight="600" fill="#FFFFFF"><text x="552" y="174">+5 V (rot)</text><text x="552" y="194">GND (braun)</text><text x="552" y="214">Signal (orange)</text></g>
+  <g fill="#F5C542"><circle cx="540" cy="170" r="5"/><circle cx="540" cy="190" r="5"/><circle cx="540" cy="210" r="5"/></g>
+
+  <!-- LEDs -->
+  <rect x="540" y="250" width="260" height="100" rx="10" fill="#B7791F"/>
+  <text x="670" y="274" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">LEDs 3 mm mit Vorwiderstand</text>
+  <g font-size="12" font-weight="600" fill="#FFFFFF"><text x="552" y="304">rot – leuchtet beim Drücken (D2)</text><text x="552" y="334">grün – Betriebsanzeige (optional)</text></g>
+  <circle cx="788" cy="300" r="6" fill="#E5484D"/><circle cx="788" cy="330" r="6" fill="#3CCF5A"/>
+  <g fill="#F5C542"><circle cx="540" cy="300" r="5"/><circle cx="540" cy="330" r="5"/></g>
+
+  <!-- Leitungen -->
+  <g stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M235 200 H360 V170 H535" stroke="#D64545"/>
+    <path d="M235 230 H380 V190 H535" stroke="#1F2933"/>
+    <path d="M235 260 H400 V210 H535" stroke="#E0A33A"/>
+    <path d="M235 290 H420 V300 H535" stroke="#E5484D"/>
+    <path d="M235 320 H440 V330 H535" stroke="#3CCF5A" stroke-dasharray="7 5"/>
+  </g>
+  <g font-size="11" fill="#52606D">
+    <text x="300" y="194" text-anchor="middle">5 V</text>
+    <text x="320" y="254" text-anchor="middle">Servo-Signal 40 Hz</text>
+    <text x="320" y="284" text-anchor="middle">rote LED</text>
+  </g>
+
+  <rect x="30" y="392" width="800" height="34" rx="8" fill="#FFFFFF" stroke="#D9E0E6"/>
+  <text x="48" y="414" font-size="12" fill="#1F2933">Kathoden der LEDs an GND. Die Tastfläche am Finger ist mit Alufolie bezogen, damit das kapazitive Bedienfeld den „Finger“ erkennt.</text>
+</svg>
